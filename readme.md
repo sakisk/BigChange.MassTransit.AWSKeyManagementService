@@ -24,7 +24,7 @@ When "configuring the bus" you can call one of the following extension methods o
 
 ### Configure with a Key Id
 
-You can configure the the bus to use a given Customer Master Key (CMK), this will be used to generate and encrypt the data encryption key that will be used for encrypting and decrypting the messages.
+You can configure the bus to use a given Customer Master Key (CMK), this will be used to generate and encrypt the data encryption key that will be used for encrypting and decrypting the messages.
 
 To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with "alias/". To specify a CMK in a different AWS account, you must use the key ARN or alias ARN.
 
@@ -32,12 +32,21 @@ To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or ali
 configurator.UseAwsKeyManagementServiceSerializer("alias/masstransit")
 ```
 
-### Configure with a Key Id with an AWS Region
+### Configure with a Key Id and an AWS Region
 
 You can specify which region to use for fetching CMK:
 
 ```csharp
 configurator.UseAwsKeyManagementServiceSerializer(RegionEndpoint.EUWest1, "alias/masstransit")
+
+```
+
+### Configure with a Key Id, an AWS Region and cache options to use `MemoryDistributedCache` for caching CMK  
+
+You can specify `MemoryDistributedCacheOptions` to configure options for caching CMK in memory:
+
+```csharp
+configurator.UseAwsKeyManagementServiceSerializerWithMemoryCache(RegionEndpoint.EUWest1, "alias/masstransit", Options.Create(new MemoryDistributedCacheOptions()));
 
 ```
 
